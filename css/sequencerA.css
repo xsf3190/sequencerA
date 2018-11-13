@@ -1,0 +1,687 @@
+/*Page Background*/
+body{
+    background-color: #333333;
+}
+
+.center {
+    text-align: center;
+}
+
+.ht-hide::before {
+    content: "Hide help.";
+}
+
+#help-text {
+    height: 118px;
+    background-color: #b4b4b4;
+}
+
+.ht-show::before {
+    content: "Show help.";
+}
+
+.help-box {
+    margin: 11px;
+    word-wrap: break-word;
+    text-align: left;
+    vertical-align: top;
+    color: black;
+    overflow-y: auto;
+}
+
+#ht {
+    text-align: center;
+}
+
+#ht:active {
+    background-color: #525252;
+}
+
+/*SweetAlert*/
+
+.swal-modal {
+    background-color: #404040;
+    color: white;
+    border: 2px solid black;
+}
+
+.swal-text {
+    color: white;
+    font-weight: bold;
+}
+
+.swal-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 5px 16px;
+    background-color: #333333;
+}
+
+.swal-button {
+    background-color: darkorange;
+    border: 2px solid black;
+    color: black;
+}
+
+.swal-button:focus {
+    background-color: none;
+}
+
+.swal-button:active, .swal-button:visited {
+    background-color: #cc7000;
+    color: black;
+}
+
+/* Chain stuff. */
+
+.chain-btn {
+    display: flex;
+    flex-direction: column;
+    /*background-color: #fe0000;*/
+    background-color: #ffa600;
+    color: black;
+    font-weight: bold;
+    width: 40px;
+    height: 38px;
+    border: 1.5px solid black;
+    font-size: 1em;
+    border-radius: 8.5px;
+    margin: 4px;
+}
+
+.fa-sort-asc, .fa-sort-desc {
+    cursor: pointer;
+}
+
+.fa-caret-down:active {
+    color: #ffea01;
+}
+
+.fa-angle-down, .fa-angle-right {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.fa-angle-down:active {
+    color: darkorange;
+}
+
+.fa-angle-right:active {
+    color: darkorange;
+}
+
+.fa-eraser {
+    align-self: flex-end;
+    padding: 2px;
+}
+
+/*Chain slot stuff*/
+
+.chain-item, .fa-times, .fa-sync {
+    font-size: 17px;
+    position: relative;
+}
+
+.chain-item {
+    margin: auto;
+    left: 14px;
+}
+
+.fa-sync {
+    right: 36px;
+    top: 4px;
+}
+
+.fa-times {
+    top: 38px;
+    right: -9.5px;
+}
+
+.chain-item {
+    margin: auto;
+}
+
+.chain-btn, .chain-item, .fa-times, .fa-refresh {
+    cursor: pointer;
+}
+
+.chain {
+    border: none;
+    background-color: #404040;
+}
+
+.chain-col1 {
+    border-left: 2px solid black;
+}
+
+.dropto, .dropto-grey, .dropto-orange {
+    display: flex;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: auto;
+    position: relative;
+    top: 22.5px;
+    color: black;
+    font-weight: bold;
+}
+
+.dropto-grey {
+    background-color: #989898;
+    border: 2px solid black;
+}
+
+.dropto-orange {
+    background-color: darkorange;
+    border: 2px solid black;
+}
+
+.dropnum {
+    font-size: 1.5rem;
+    text-align: center;
+    position: relative;
+    top: 22.5px;
+    color: black;
+}
+
+.dropnum-white {
+    color: white;
+}
+
+.sequence-btn {
+    background-color: #ffea01;
+    color: black;
+    font-weight: bold;
+    width: 38px;
+    height: 38px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1.5px solid black;
+    font-size: 1em;
+    border-radius: 8.5px;
+    float: left;
+    margin: 4px;
+    cursor: pointer;
+    box-shadow: 0px 1.7px 5px #8c8c8c;
+}
+
+#dragfrom {
+    width: 297px;
+    height: 118px;
+    overflow-y: auto;
+    margin: auto;
+    display: flex;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #b4b4b4;
+    border-left: 2px solid black;    
+}
+
+#dragfrom:empty:before {
+    content:"No Sequences saved";
+    width: 100%;
+    text-align: center;
+}
+
+#ht2 {
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
+#meter td:last-child:active {
+    background-color: #525252;
+}
+
+#importfile {
+    display: none;
+}
+
+#main-table > tbody > tr:nth-child(1) > th:nth-child(1) {
+    width: 200px;
+}
+
+textarea {
+    width:100%;
+    height:500px;
+}
+
+.btn-volume, .btn-pan {
+    margin-right: 7px;
+    background-color: red;
+}
+
+/*controls*/
+
+tr[data-y] td:nth-child(2) {
+    text-align: center;
+}
+
+tr[data-y] td:nth-child(2),
+tr[data-y] td:nth-child(3) {
+    background-color: #989898;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    text-align: center;
+}
+
+tr[data-y] td:nth-child(4) {
+    border-left: 2px solid black;
+}
+
+#main-table > tbody > tr:nth-child(11) {
+    border-bottom: 2px solid black;
+}
+
+/* Sliders */
+
+input[type=range]{
+    -webkit-appearance: none;
+    background-color: #989898;
+    vertical-align: middle;
+    margin: 10px 0px;
+}
+
+input.btn-volume[type=range]::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #ffea01 , darkorange);
+}
+
+input.btn-pan[type=range]::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #00a06c , #01fbbc , #00a06c);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 8.5px;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin: auto 4px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid black;
+    height: 24px;
+    width: 15px;
+    border-radius: 30%;
+    background: #666666;
+    margin-top: -10px;
+    cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-thumb:active {
+    background: #4d4d4d;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+#stereo {
+    background-color: black;
+}
+
+.centre {
+    text-align: center;
+}
+
+.fa-trash-o, .fa-upload, .fa-code, #save, #exportall, #okay {
+    color: black;
+    cursor: pointer;
+    background: radial-gradient(#01fbbc, #00a06c);
+    padding: 1.2rem;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 1px solid black;
+}
+
+#okay {
+    border: 2px solid black;
+    padding: 0.6rem;
+    float: right;
+}
+
+.fa-trash-o:active, .fa-upload:active, .fa-code:active {
+    background: radial-gradient(#00ad78, #00ab76);
+}
+
+#save, #exportall {
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
+#reset:active, 
+#btn-save:active, 
+#btn-load:active, 
+#btn-import:active, 
+#btn-clear:active, 
+.bpm-num[data-increment="-10"]:active,
+.bpm-num[data-increment="10"]:active,
+.bpm-num[data-increment="-1"]:active,
+.bpm-num[data-increment="1"]:active {
+    color: #ffea01;
+}
+
+.context-menu-item, .context-menu-list {
+    background-color: #2e2e2e;
+    color: white;
+    border: black;
+}
+
+.context-menu-icon.context-menu-icon--fa::before {
+    color: #01fbbc;
+}
+
+.context-menu-icon.context-menu-icon--fa.context-menu-hover:before {
+color: #ffea01;
+}
+
+.context-menu-item.context-menu-hover {
+    background-color: black;
+}
+
+.context-menu-item.context-menu-hover {
+    color: white;
+}
+
+#start-stop, #reset, #btn-save, #btn-load, #btn-import, #btn-clear, .btn-bpm {
+    box-shadow: 0px 3px 5px #2e2e2e;
+}
+
+#start-stop:active, 
+#reset:active, 
+#btn-save:active, 
+#btn-load:active, 
+#btn-import:active, 
+#btn-clear:active, 
+.btn-bpm:active {
+    background: radial-gradient(#00ad78, #00ab76);
+}
+
+#btn-save, #btn-load, #btn-import, #btn-clear {
+    width: 38mm;
+}
+
+.sep-number, .sep-sm, .sep-lg {
+    position: relative;
+    right: 3.5px;
+    font-weight: bold;
+}
+
+.sep-number {
+    margin-left: 6px;
+}
+
+.fa-pause {
+    color: #ffea01;
+}
+
+/*Channel active*/
+.btn-sound:active {
+    background-color: #525252;
+}
+
+
+.bpm-num[data-increment="-10"],.bpm-num[data-increment="10"],.bpm-num[data-increment="-1"],.bpm-num[data-increment="1"] {
+    position: relative;
+    font-weight: bold;
+}
+
+.bpm-num[data-increment="-1"],.bpm-num[data-increment="1"] {
+    bottom: 4px;
+}
+
+.bpm-num[data-increment="-10"],.bpm-num[data-increment="10"] {
+    top: 2px;
+}
+
+.bpm-num {
+    background: none;
+    border: none;
+    text-align: center;
+    font-size: 11px;
+    padding: 0;
+    margin: 0;
+}
+
+
+.test::before {
+    content: "";
+}
+
+button:disabled {
+    opacity: 0.42;
+}    
+
+.yellow {
+    color: #ffea01;
+}
+
+.darker {
+    background-color: #313131;
+}
+
+/*help box*/
+th:nth-child(1) {
+    background-color: #b4b4b4;
+    border: 2px solid black;
+}
+
+.sep-lg {
+    font-size: 18px;
+    text-align: left;
+    padding: none;
+    margin-left: 0px;
+    margin-bottom: 3px;
+}
+
+.btn-single, .btn-mute {
+    color: black;
+    font-weight: bold;
+    width: 45px;
+    height: 25px;
+    margin: 6px auto;
+    text-align: center;
+    border: 2px solid black;
+    font-size: 1em;
+    border-radius: 15px;
+    display: block;
+}
+
+button {
+    cursor: pointer; 
+}
+
+.current {
+    border-bottom: 4px solid #ffea01;
+}
+
+*:focus {
+    outline: none;
+}
+
+.cell {
+    background-color: #C0C0C0;
+    padding: 23px 9px;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin: 1px;
+}
+
+.cell.selected {
+  background-color: darkorange;
+}
+
+#meter {
+    border: 2px solid black;
+    border-bottom: 4px solid black;
+}
+
+#meter td:nth-child(n+2) {
+    background-color: #989898;
+    cursor: pointer;
+}
+
+#meter td:last-child {
+    background-color: #626262;
+    border-left: 2px solid black;
+    text-align: center;
+}
+
+#main-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black;
+    box-shadow: 0px 0px 27px black;
+}
+
+#main-table tr:nth-child(1) {
+    background: radial-gradient(#484848, #373737);
+}
+    
+#main-table tr {
+    background-color: #484848;
+}
+
+/*channel name*/
+.btn-sound, #ht {
+    background-color: #626262;
+    border: 2px solid black;
+    color: black;
+    font-weight: bold;
+}
+
+.btn-sound>span {
+    cursor: pointer;
+}
+
+.btn-sound {
+    padding: 1rem;
+    font-family: "Arial";
+}
+
+#main-table td:nth-child(2) {
+    border-left: 2px solid black;
+}
+
+#btn-save, #btn-import {
+    margin-bottom: 4px;
+}
+
+#btn-load, #btn-clear, #btn-save, #btn-import {
+    border: 2px solid black;
+    background: radial-gradient(#01fbbc, #00b37a);
+    color: black;
+    cursor: pointer;
+    margin: 16px;
+    padding: 3px 40px;
+    border-radius: 6.5px;
+    
+}
+
+#start-stop, #reset {
+    width: 58px;
+    height: 58px;
+    background: radial-gradient(#01fbbc, #00b37a);
+    cursor: pointer;
+    border-radius: 8px;
+    border: 2px solid black;
+    margin: 20px;
+}
+
+
+
+#bpm {
+    height: 80px;
+    background-color: #dbdbdb;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: #383838;
+    text-align: center;
+    font-size: 30px;
+    vertical-align: middle;
+    line-height: 80px;
+}
+
+
+
+.btn-bpm {
+    border-radius: 7px;
+    height: 65px;
+    width: 25px;
+    background: radial-gradient(#01fbbc, #00b37a);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.fa-minus, .fa-plus {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.muted {
+    background-color: #fe0000;
+}
+
+.single {
+    background: #ffea01;
+}
+
+/* Dialog styles */
+fieldset {
+    margin: 20px;
+    border: 5px solid #1F497D;
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+fieldset legend {
+    padding: 5px 10px ;
+    border-radius: 5px;
+    box-shadow: 0 0 0 5px #ddd;
+    margin-left: 5rem;
+}
+
+.sliders {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: none;
+}
+
+/* SWAL radio buttons */
+.swal2-radio-container {
+    padding: 0;
+    margin-bottom: 1rem;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.swal2-flex-item {
+    /*color: #C3D0D9;*/
+    border: 1px solid #C3D0D9;
+    /*width: 1.0rem;*/
+    height: 1.5rem;
+    /*font-size: 200%;*/
+    text-align: center;
+    padding: 0.75rem;
+    margin: 0.1rem;
+}
+.swal2-label {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+input[type=radio]:checked + label {
+    background: #eee;
+    color: blue;
+    text-decoration: underline;
+}
+input[type=radio] {
+    display: none;
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sound Sequencer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.1.5/dist/jszip.min.js" defer></script>
+    <script src="sequencerA.indexedDB.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="sequencerA.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> 
+    <script type="text/javascript">
+      function downloadJSAtOnload() {
+        [
+           "https://cdn.jsdelivr.net/npm/sweetalert2@7.28.5/dist/sweetalert2.all.min.js"
+          ,"https://cdn.jsdelivr.net/npm/howler@2.0.15/dist/howler.min.js"
+          ,"sequencerA.events.js"
+          ,"sequencerA.functions.js"
+        ].forEach(function(js) {
+          let element = document.createElement("script");
+          element.src = js;
+          document.body.appendChild(element);
+        });
+      }
+        if (window.addEventListener)
+          window.addEventListener("load", downloadJSAtOnload, false);
+        else if (window.attachEvent)
+          window.attachEvent("onload", downloadJSAtOnload);
+        else window.onload = downloadJSAtOnload;
+    </script>
+</head>
+
+<body>
+  <img id="logo" height="30">
+
+  <table id="main-table">  
+    <thead>
+      <tr>
+        <th colspan="3">
+          <div id="help-text"></div>
+        </th>
+        <th colspan="8">
+          <button type="button" id="btn-save" data-help="Save the current sequence.">SAVE</button>
+          <br>
+          <button type="button" id="btn-load" data-help="Load an existing sequence.">LOAD</button>
+        </th>
+        <th colspan="4">
+          <button type="button" id="start-stop" data-help="Play/Pause."><span class="fas fa-play fa-2x"></span></button>
+        </th>
+        <th>
+          <div class="btn-bpm">
+            <button type="button" data-increment="-10" class="bpm-num" data-help="Decrease BPM by 10.">10</button>
+            <span class="fas fa-minus"></span>
+            <button type="button" data-increment="-1" class="bpm-num" data-help="Decrease BPM by 1.">1</button>
+          </div>
+        </th>
+        <th></th>
+        <th colspan="4">
+          <div id="bpm"  data-help="Tempo: Beats per minute (BPM).">120</div>
+        </th>
+        <th></th>
+        <th>
+          <div class="btn-bpm">
+            <button type="button" data-increment="10" class="bpm-num" data-help="Increase BPM by 10.">10</button>
+            <span class="fas fa-plus"></span>
+            <button type="button" data-increment="1" class="bpm-num"  data-help="Increase BPM by 1.">1</button>
+          </div>          
+        </th>
+        <th colspan="4">
+          <button type="button" id="btn-reset" data-help="Reset yellow marker to 1 (start of sequence)."><span class="fas fa-backward fa-2x"></span></button>
+        </th>
+        <th colspan="8">
+          <input id="importfile" type="file" multiple accept=".zip">
+          <button type="button" id="btn-import" data-help="Import sequences saved in zip file (see Export).">IMPORT</button>
+          <br>
+          <button type="button" id="btn-clear" data-help="Remove all orange cells, reset volume & panning and return to default sound samples.">CLEAR</button>
+        </th>  
+        <th colspan="4">
+          <div id="dragfrom"></div>
+        </th>          
+      </tr>
+      <tr id="meter">
+        <th id="ht" colspan="3"></th>
+        <th data-x="0" class="current" ><div class="sep-num"></div><div class="sep-number">1</div></th>
+        <th data-x="1"></th>
+        <th data-x="2"><div class="sep-sm">|</div></th>
+        <th data-x="3"></th>
+        <th data-x="4"><div class="sep-lg">|</div></th>
+        <th data-x="5"></th>
+        <th data-x="6"><div class="sep-sm">|</div></th>
+        <th data-x="7"></th>
+        <th data-x="8"><div class="sep-num"></div><div class="sep-number">2</div></th>
+        <th data-x="9"></th>
+        <th data-x="10"><div class="sep-sm">|</div></th>
+        <th data-x="11"></th>
+        <th data-x="12"><div class="sep-lg">|</div></th>
+        <th data-x="13"></th>
+        <th data-x="14"><div class="sep-sm">|</div></th>
+        <th data-x="15"></th>
+        <th data-x="16"><div class="sep-num"></div><div class="sep-number">3</div></th>
+        <th data-x="17"></th>
+        <th data-x="18"><div class="sep-sm">|</div></th>
+        <th data-x="19"></th>
+        <th data-x="20"><div class="sep-lg">|</div></th>
+        <th data-x="21"></th>
+        <th data-x="22"><div class="sep-sm">|</div></th>
+        <th data-x="23"></th>
+        <th data-x="24"><div class="sep-num"></div><div class="sep-number">4</div></th>
+        <th data-x="25"></th>
+        <th data-x="26"><div class="sep-sm">|</div></th>
+        <th data-x="27"></th>
+        <th data-x="28"><div class="sep-lg">|</div></th>
+        <th data-x="29"></th>
+        <th data-x="30"><div class="sep-sm">|</div></th>
+        <th data-x="31"></th>
+        <th id="btn-clearchain" colspan="4" data-help="Removes all Sequences from Chain.">Clear Chain.</th>
+      </tr>
+    </thead>
+    <tbody id="main-tbody"></tbody>
+  </table>
+  
+  <footer>
+    <p>Created by Adam K. Brown, Mark R. Brown, 2018. Version <span id="version"></span></p>
+  </footer>
+
+</body>
+
+</html>
