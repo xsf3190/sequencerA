@@ -6,14 +6,12 @@ $(function() {
     let sequenceLength=database.sequenceLength();
     let project=database.project();
     let projectIndex=database.projectIndex();
-    let hSounds=[];
 
-    let interval = null;
+    let hSounds=[];
+    let interval=null;
     let pos=0;
     let chains=[];
     let chains_pos=0;  
-    
-       // Help box stuff
     let help = $("#help-text");
     help.addClass("help-default");
        
@@ -196,7 +194,8 @@ $(function() {
             that.css({"font-style":"normal","text-decoration":"none"});
             if (result.value) {
                 let y=that.closest("tr").data("y");
-                that.text(result.value[0].concat(result.value[2]));
+                name=result.value[0].concat(result.value[2]);
+                that.text(name);
                 project.sounds[y].id=result.value[1];
             }
         });     
@@ -396,15 +395,15 @@ $(function() {
     // User clicks on chain element
     $("#main-tbody").on("click",".chain-item",function(){
         let that=$(this);
-        let key=that.data("key");
+        let id=that.prop("id");
         $(".dropto").removeClass("dropto-orange");
         $(".dropnum").removeClass("dropnum-white");
         that.parent($(".dropto")).addClass("dropto-orange");
         that.parent().prev($(".dropnum")).addClass("dropnum-white dropnum-full");
         if (that.parent($(".dropto")).hasClass("yellow") && that.parent($(".dropto")).hasClass("dropto-orange")) {
-            loadSequence(key,true);
+            loadSequence(id,true);
         } else {
-            loadSequence(key,false);
+            loadSequence(id,false);
         }
     });
     
@@ -816,7 +815,7 @@ $(function() {
         if (playicon.hasClass("fa-pause")) {
             clearInterval(interval);
         } else {
-            buildChain;
+            buildChain();
             if (chains.length>0) {
                 loadSequence(chains[chains_pos].id,chains[chains_pos].loop);
             }
@@ -903,10 +902,10 @@ $(function() {
             if (project.sounds[i].sequence[pos] && !project.sounds[i].mute) {
                 if (!single || (single && project.sounds[i].single)) {
                     let soundid=project.sounds[i].id;
-                    if (!hSounds[soundid]) {
-                        loadSound(soundid).then(()=>hSounds[soundid].play());
-                    } else {
+                    if (hSounds[soundid]) {
                         hSounds[soundid].play();
+                    } else {
+                        loadSound(soundid).then(()=>hSounds[soundid].play());
                     }
                 }
             }
@@ -931,21 +930,8 @@ $(function() {
                 console.log(chains_pos); console.log(chains);
                 setmarker();
                 chains_pos=(chains_pos+1)%chainsLength; 
-                loadSequence(chains[chains_pos].id,true);
+                loadSequence(chains[chains_pos].id,chains[chains_pos].loop);
                 setmarker();
-
-                /*for (let i in project.sounds) {
-                    $("#sound"+i).text(project.sounds[i].name);
-                    $("#volume"+i).val(project.sounds[i].volume);
-                    $("#stereo"+i).val(project.sounds[i].stereo);
-                    for (let j=0; j<sequenceLength; j++) {
-                        if (project.sounds[i].sequence[j]) {
-                            $("tr[data-y="+i+"]").find("[data-x="+j+"]").addClass("selected");
-                        } else {
-                            $("tr[data-y="+i+"]").find("[data-x="+j+"]").removeClass("selected");
-                        }
-                    }
-                }*/
             }
         }
     }

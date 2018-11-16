@@ -42,13 +42,14 @@
           <div id="help-text"></div>
         </th>
         <th colspan="8">
-          <button type="button" id="btn-save" data-help="Save the current sequence.">SAVE</button>
+          <button type="button" id="btn-save" class="btn-text" data-help="Save the current sequence.">SAVE</button>
           <br>
-          <button type="button" id="btn-load" data-help="Load an existing sequence.">LOAD</button>
+          <button type="button" id="btn-load" class="btn-text" data-help="Load an existing sequence.">LOAD</button>
         </th>
         <th colspan="4">
-          <button type="button" id="start-stop" data-help="Play/Pause."><span class="fas fa-play fa-2x"></span></button>
+          <button type="button" id="start-stop" class="btn-icon" data-help="Play/Pause."><span class="fas fa-play fa-2x"></span></button>
         </th>
+
         <th>
           <div class="btn-bpm">
             <button type="button" data-increment="-10" class="bpm-num" data-help="Decrease BPM by 10.">10</button>
@@ -68,14 +69,15 @@
             <button type="button" data-increment="1" class="bpm-num"  data-help="Increase BPM by 1.">1</button>
           </div>          
         </th>
+
         <th colspan="4">
-          <button type="button" id="btn-reset" data-help="Reset yellow marker to 1 (start of sequence)."><span class="fas fa-backward fa-2x"></span></button>
+          <button type="button" id="btn-reset" class="btn-icon" data-help="Reset yellow marker to 1 (start of sequence)."><span class="fas fa-backward fa-2x"></span></button>
         </th>
         <th colspan="8">
           <input id="importfile" type="file" multiple accept=".zip">
-          <button type="button" id="btn-import" data-help="Import sequences saved in zip file (see Export).">IMPORT</button>
+          <button type="button" id="btn-import" class="btn-text" data-help="Import sequences saved in zip file (see Export).">IMPORT</button>
           <br>
-          <button type="button" id="btn-clear" data-help="Remove all orange cells, reset volume & panning and return to default sound samples.">CLEAR</button>
+          <button type="button" id="btn-clear" class="btn-text" data-help="Remove all orange cells, reset volume & panning and return to default sound samples.">CLEAR</button>
         </th>  
         <th colspan="4">
           <div id="dragfrom"></div>
