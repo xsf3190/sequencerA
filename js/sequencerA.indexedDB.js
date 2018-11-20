@@ -41,8 +41,7 @@ var database=(function() {
 
             createStores();
             
-            ['https://cdn.rawgit.com/xsf3190/sequencerA/master/sounds1.zip',
-             'https://cdn.rawgit.com/xsf3190/sequencerA/master/sounds2.zip'].forEach(function(zipfile){
+            ['sounds1.zip','sounds2.zip'].forEach(function(zipfile){
                 installFile(zipfile);
             });
         }
@@ -123,13 +122,17 @@ var database=(function() {
         console.error('An IndexedDB error has occurred', e);
     }
 
-    function installFile(zipfile) {
+    async function installFile(zipfile) {
         // Retrieve zip file of sample sounds and images from server and insert into indexedDB
-        getFile(zipfile).then(function(response) {
-            loadFile2DB(response);
-        }).catch(function(error) {
-            console.error("Failed!", error);
-        });
+        let url="https://cdn.rawgit.com/xsf3190/sequencerA/master/"+zipfile;
+        try {
+            let response=await fetch(url);
+            let blob=await response.blob();
+            loadFile2DB(blob);
+        } catch(e) {
+            console.error("Failed!", e);
+            alert(e);
+        }
     }
 
     // Build projectIndex array of user's sequences and chains
@@ -222,30 +225,6 @@ var database=(function() {
             }    
         }
     };
-
-    // Get zip file from server
-    function getFile(url) {
-        return new Promise(function (resolve, reject) {
-            var req=new XMLHttpRequest();
-            req.open("GET", url);
-            req.responseType = 'blob';
-            req.onload=function() {
-                if (req.status==200) {
-                    if (req.response.type=="application/zip") {
-                        resolve(req.response);
-                    } else {
-                        reject("Must be zip file");
-                    }
-                } else {
-                    reject(Error,(req.statusText));
-                }
-            }
-            req.onerror=function() {
-                reject(Error,"NETWORK ERROR");
-            }
-            req.send();
-        });
-    }    
 
     // load contents of downloaded zip file into indexedDB stores
     function loadFile2DB(zipfile) {

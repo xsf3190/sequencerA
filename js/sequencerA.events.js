@@ -197,6 +197,7 @@ $(function() {
                 name=result.value[0].concat(result.value[2]);
                 that.text(name);
                 project.sounds[y].id=result.value[1];
+                project.sounds[y].name=name;
             }
         });     
     });
