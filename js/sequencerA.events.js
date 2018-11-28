@@ -326,7 +326,7 @@ $(function() {
             $(".dropto").removeClass("dropto-orange");
             $(".dropnum").removeClass("dropnum-white");
             tgt.addClass("dropto-grey dropto-orange");
-            tgt.prev($(".dropnum")).addClass("dropnum-white dropnum-full");
+            tgt.prev($(".dropnum")).addClass("dropnum-white");
         }
         if (drop.type==="C") {
             if ($(".dropto").hasClass("dropto-grey")) {
@@ -350,13 +350,12 @@ $(function() {
     });
     
     function loadSequence(id,cellEnabled) {
-        clear.trigger("click");
         project=JSON.parse(projectIndex[id].sequence);
         if (!project) {
             swal("SEQUENCE NOT LOADED FOR KEY :"+id+":");
             return;
         }
-        // Set element properties in DOM based on sequence data loaded from localStorage
+        // Set element properties in DOM
         bpm.text(project.bpm);
         for (let i in project.sounds) {
             $("#sound"+i).text(project.sounds[i].name);
@@ -364,31 +363,28 @@ $(function() {
             $("#stereo"+i).val(project.sounds[i].stereo);
             for (let j=0; j<sequenceLength; j++) {
                 if (project.sounds[i].sequence[j]) {
-                    $("tr[data-y="+i+"]").find("[data-x="+j+"]").addClass("selected");
+                    $("tr[data-y="+i+"]").find("[data-x="+j+"]").addClass("selected").prop("disabled",!cellEnabled);
+                } else {
+                    $("tr[data-y="+i+"]").find("[data-x="+j+"]").removeClass("selected").prop("disabled",!cellEnabled);
                 }
             }
-        }
-        if (cellEnabled) {
-            $(".cell").prop("disabled",false);
-        } else {
-            $(".cell").prop("disabled",true);
         }
     }
     
     // Load chain sequences into RHS panel making the first sequence current
-    function loadChain(chainid) {
-        for (let i in projectIndex[chainid].sequences) {
-            tgt=$("#"+chain[j].slot);
-            key=chain[j].key;
-            // Get the array index of projectIndex for next sequence in the chain
-            xSequence=existsIndex("key",key);
-            tgt.append('<span data-key="'+key+'" id="'+key+'" class="chain-item" draggable="true">'+projectIndex[xSequence].abbr+'</span><span class="fas fa-times" title="Remove from Chain"></span><span class="fas fa-sync" title="Loop/ Edit Sequence"></span>');
-            if (j==0) {
-                tgt.addClass("dropto-grey dropto-orange");
-                tgt.prev($(".dropnum")).addClass("dropnum-white dropnum-full");  
-                loadSequence(key,false);
-            } else {
+    function loadChain(id) {
+        let slot=0;
+        for (let i in projectIndex) {
+            // projectIndex array indexed by the id of "projects" indexedDB store
+            if (projectIndex[i].chainid==id) {
+                slot++;
+                let tgt=$("#dropto_"+slot);
                 tgt.addClass("dropto-grey");
+                tgt.append('<span id="'+i+'" class="chain-item" draggable="true">'+projectIndex[i].abbr+'</span><span class="fas fa-times" title="Remove from Chain"></span><span class="fas fa-sync" title="Loop/ Edit Sequence"></span>');
+                if (slot===1) {
+                    tgt.addClass("dropto-orange");
+                    loadSequence(i,false);
+                }
             }
         }
     }
@@ -400,7 +396,7 @@ $(function() {
         $(".dropto").removeClass("dropto-orange");
         $(".dropnum").removeClass("dropnum-white");
         that.parent($(".dropto")).addClass("dropto-orange");
-        that.parent().prev($(".dropnum")).addClass("dropnum-white dropnum-full");
+        that.parent().prev($(".dropnum")).addClass("dropnum-white");
         if (that.parent($(".dropto")).hasClass("yellow") && that.parent($(".dropto")).hasClass("dropto-orange")) {
             loadSequence(id,true);
         } else {
@@ -409,7 +405,12 @@ $(function() {
     });
     
     // Click refresh button to open sequence for edit
-    $("#main-tbody").on("click",".fa-sync",function() {
+    //$("#main-tbody").on("click",".fa-sync",function() {
+    document.getElementById("main-tbody").addEventListener('click',function(e){
+        //console.log(e.target.classList);
+        console.log(e);
+    });
+    /*
         let that=$(this).parent();
         //bug
         if (that.hasClass("yellow")) {
@@ -425,7 +426,7 @@ $(function() {
         } else {
             $(".cell").prop("disabled",true);
         }
-    });
+    });*/
 
     // Remove sequence from chain
     $("#main-tbody").on('click','.fa-times', function(){
@@ -434,7 +435,7 @@ $(function() {
             clear.trigger("click");
         }
         that.empty().removeClass("dropto-grey dropto-orange yellow");
-        that.prev($(".dropnum")).removeClass("dropnum-white dropnum-full");
+        that.prev($(".dropnum")).removeClass("dropnum-white");
     });
     
     // Sort on table column heading
@@ -801,9 +802,11 @@ $(function() {
     // Each sound enabled by new Howl object entry in hSounds array; only requested sounds are enabled in order to conserve client memory usage.
     function loadSound(soundid) {
         return new Promise(function (resolve, reject) {
-            db.transaction("sounds","readonly").objectStore("sounds").get(soundid).onsuccess=function(e1) { 
+            let transaction=db.transaction(["blobs","sounds"],"readonly");
+            transaction.onerror=()=>reject("Error setting hSounds");
+            transaction.objectStore("sounds").get(soundid).onsuccess=function(e1) { 
                 let type=e1.target.result.type;
-                db.transaction("blobs","readonly").objectStore("blobs").get(soundid).onsuccess=function(e2) { 
+                transaction.objectStore("blobs").get(soundid).onsuccess=function(e2) { 
                     hSounds[soundid]=new Howl({format:type, volume:0.5, stereo:0.0, src:URL.createObjectURL(e2.target.result.data)});
                     resolve();
                 }
@@ -830,7 +833,7 @@ $(function() {
         chains=[];
         chains_pos=0;
         $(".chain-item").each(function(index,value) {
-            let id=$(this).prop("id");
+            let id=parseInt($(this).prop("id"));
             let parent=$(this).parent();
             chains.push({"id":id,"slot":parent.prop("id"),"loop":parent.hasClass("yellow")});
             if (parent.hasClass("dropto-orange")) {
@@ -869,10 +872,6 @@ $(function() {
 
     // Clear button - remove project and reset DOM elements 
     clear.click(function () {
-        if (interval) {
-            clearInterval(interval);
-            playicon.removeClass("fa-pause").addClass("fa-play");
-        }
         $("button").prop("disabled",false).removeClass("single").removeClass("muted").removeClass("selected");
         resetCurrent();
         $("#bpm").text("120");
@@ -911,7 +910,6 @@ $(function() {
                 }
             }
         }
-
         // Move the meter to next position after all sounds played
         $(".current").removeClass("current");
         
@@ -920,6 +918,7 @@ $(function() {
 
         // End of sequence. IF playing chain then load/play next sequence in chain else loop on currently displayed sequence
         if (pos==0) {
+            buildChain();
             let chainsLength=chains.length;
             if (chainsLength>1) {
                 function setmarker() {
@@ -928,7 +927,6 @@ $(function() {
                     $("#"+dropto).toggleClass("dropto-orange"); 
                     $("#"+dropnum).toggleClass("dropnum-white");  
                 }
-                console.log(chains_pos); console.log(chains);
                 setmarker();
                 chains_pos=(chains_pos+1)%chainsLength; 
                 loadSequence(chains[chains_pos].id,chains[chains_pos].loop);

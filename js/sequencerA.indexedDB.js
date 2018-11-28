@@ -265,9 +265,6 @@ var database=(function() {
             } else {
                 transaction.objectStore("sounds").add({id:id, name:name, type:type, num:num, category:category[0]}).onsuccess=function(e) {
                     console.log("Inserted successfully - "+filename);
-                    //let dragfrom=document.getElementById("help-text");
-                    //let text=document.createTextNode(filename);
-                    //dragfrom.appendChild(text); 
                 }
             }
         }
