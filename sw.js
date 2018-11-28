@@ -1,6 +1,7 @@
-var CACHE_NAME = 'static-cache';
-var urlsToCache = [
-  '.',
+"use strict";
+
+let CACHE_NAME = 'static-cache';
+let urlsToCache = [
   'index.html',
   'css/sequencerA.css',
   'js/sequencerA.indexedDB.js',
