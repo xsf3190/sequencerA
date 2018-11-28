@@ -25,17 +25,16 @@ self.addEventListener('install', function(event) {
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request).then(function(response) {
-      console.log(event.request);
       return response || fetch(event.request);
     })
+    .catch((error) => console.log(event.request,error)
+    )
   );
 });
 
 self.addEventListener('activate', event => {
   console.log('Activating new service worker...');
-
   const cacheWhitelist = [CACHE_NAME];
-
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
