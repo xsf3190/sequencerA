@@ -3,6 +3,7 @@
 let CACHE_NAME = 'static-cache';
 let urlsToCache = [
   'index.html',
+  'favicon.ico',
   'css/sequencerA.css',
   'js/sequencerA.indexedDB.js',
   'js/sequencerA.events.js'
