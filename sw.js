@@ -2,6 +2,7 @@
 
 let CACHE_NAME = 'static-cache';
 let urlsToCache = [
+  '/',
   'index.html',
   'favicon.ico',
   'css/sequencerA.css',

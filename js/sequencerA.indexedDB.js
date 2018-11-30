@@ -308,6 +308,7 @@ var database=(function() {
     }
 
     let deferredPrompt;
+    let btnAdd=document.getElementById("btnAdd");
 
     window.addEventListener('beforeinstallprompt', (e) => {
         // Prevent Chrome 67 and earlier from automatically showing the prompt
