@@ -1,10 +1,10 @@
 # sequencerA
-Pure Javascript application to develop, play and manage sound sequences
+Pure Javascript application to develop, play and manage sound sequences, making use of:
 
-Making use of following technologies:
 1. HTML5 localStorage and indexedDB
 2. webAudio Javascript API
-3. Sound files distributed as zip files on itial connection and uploaded in background to indexedDB tables
+3. Sound files distributed as zip files on initial connection and uploaded in background to indexedDB tables
+4. Service Workers
 
 User develops sound sequences through a simple grid interface.
 
